@@ -91,9 +91,7 @@ while not crashed:
 
     gameDisplay.fill(white)
 
-    #path = "C:\\Users\\lmgab\\Desktop\\mainEnv\\faces\\20200407_112346.jpg"
-    path = "C:\\Users\\lmgab\\Desktop\\mainEnv\\faces\\82536cacddfc4394831966753f996d9f.jpeg"
-    #path = "C:\\Users\\lmgab\Downloads\\thumbnails128x128-20200624T204854Z-001\\thumbnails128x128\\00000\\00000.png"
+    path = "----PATH OF IMAGE----"
     img = cv2.imread(path,1)
     originalFace = pygame.image.load(path)
     orignalRes = originalFace.get_size()
@@ -124,9 +122,9 @@ while not crashed:
         end_new = int(endPos[0]/(300/len(img)))
 
 
-        for y in img[start_new_y:+start_new_y+end_new]:#img[int(round(startPos[0]/(300/len(img)))):int(round(startPos[0]/(300/len(img))+endPos[0]/(300/len(img))))]:
+        for y in img[start_new_y:+start_new_y+end_new]:
             temp2 = []
-            for x in y[start_new_x:start_new_x+end_new]:#y[int(round(startPos[1]/(300/len(img)))):int(round(startPos[1]/(300/len(img))+endPos[0]/(300/len(img))))]:
+            for x in y[start_new_x:start_new_x+end_new]:
                 temp2.append(x)
             temp.append(np.array(temp2))
         crop_img = np.array([np.array(temp)])/255
@@ -148,9 +146,9 @@ while not crashed:
 
 
         new_output = np.array([new])*255
-        cv2.imwrite("C:\\Users\\lmgab\\Desktop\\mainEnv\\faces\\tempPic.jpg", new_output[0]) 
+        cv2.imwrite("tempPic.jpg", new_output[0]) 
         new_output2 = crop_img*255
-        cv2.imwrite("C:\\Users\\lmgab\\Desktop\\mainEnv\\faces\\tempPic2.jpg", new_output2[0]) 
+        cv2.imwrite("tempPic2.jpg", new_output2[0]) 
         
         selected = True
         mouseC = 0
@@ -158,23 +156,22 @@ while not crashed:
     if(selected):
         pygame.draw.rect(gameDisplay,(25,25,25),[startPos[0],startPos[1],endPos[0],endPos[0]],3)
 
-        #x = gameDisplay.blit(pygame.transform.scale(originalFace,[int(300*ratio),int(300*ratio)]), (0, 300),cropRect)
 
-        smallFace = pygame.image.load("C:\\Users\\lmgab\\Desktop\\mainEnv\\faces\\tempPic2.jpg")
+        smallFace = pygame.image.load(tempPic2.jpg")
         smallFace = pygame.transform.scale(smallFace,[300,300])
         gameDisplay.blit(smallFace, (0,300))
 
-        newFace = pygame.image.load("C:\\Users\\lmgab\\Desktop\\mainEnv\\faces\\tempPic.jpg")
+        newFace = pygame.image.load("tempPic.jpg")
         newFace = pygame.transform.scale(newFace,[300,300])
         gameDisplay.blit(newFace, (300,300))
 
 
         if(pygame.mouse.get_pressed()[0] and pygame.mouse.get_pos()[0]>300 and pygame.mouse.get_pos()[1]<300):
-            img = cv2.imread("C:\\Users\\lmgab\\Desktop\\mainEnv\\faces\\tempPic.jpg",1)
+            img = cv2.imread("tempPic.jpg",1)
             imgs = np.array([np.array(img)])/255
             new = enhance(imgs[0])
             new_output = np.array([new])*255
-            cv2.imwrite("C:\\Users\\lmgab\\Desktop\\mainEnv\\faces\\tempPic.jpg", new_output[0]) 
+            cv2.imwrite("tempPic.jpg", new_output[0]) 
 
 
     pygame.display.update()
